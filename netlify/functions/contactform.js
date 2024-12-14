@@ -15,7 +15,7 @@ const handler = async (event) => {
 
   try {
     // Parse the request body
-    const { name, email, message } = JSON.parse(event.body || "{}");
+    const { name, email, phone, subject, message } = JSON.parse(event.body || "{}");
 
     // Validate required fields
     if (!name || !email || !message) {
@@ -27,15 +27,28 @@ const handler = async (event) => {
 
     const senderEmail = "shazib.amjad@gmail.com"; // Ensure this email is verified in SendGrid
 
-    const msg = {
-      to: "adam.kunz+inft@durhamcollege.ca", // Replace with your desired recipient
+    // Define subject prefix
+    const subjectPrefix = "[Auto-Message] ";
+
+    // Define email to yourself
+    const msgToSelf = {
+      to: senderEmail,
       from: senderEmail,
-      subject: "New Contact Form Submission",
-      text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+      subject: `${subjectPrefix}${subject}`,
+      text: `You have received a new contact form submission:\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nSubject: ${subject}\nMessage: ${message}`,
     };
 
-    // Send the email
-    await sgMail.send(msg);
+    // Define email to Adam
+    const msgToAdam = {
+      to: "adam.kunz+inft@durhamcollege.ca",
+      from: senderEmail,
+      subject: `${subjectPrefix}${subject}`,
+      text: `You have received a new contact form submission:\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nSubject: ${subject}\nMessage: ${message}`,
+    };
+
+    // Send both emails
+    await sgMail.send(msgToSelf);
+    await sgMail.send(msgToAdam);
 
     // Return success response
     return {
