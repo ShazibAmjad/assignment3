@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us</title>
+  <!-- Link to external CSS file -->
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <!-- Simple navigation including a link to the contact page -->
   <nav>
     <a href="/">Home</a>
-    <a href="/src/contact.html">Contact</a>
+    <a href="/contact.html">Contact</a> <!-- Corrected link path -->
   </nav>
 
   <h1>Contact Us</h1>
@@ -33,8 +34,14 @@
     <button type="submit">Send</button>
   </form>
 
-  <div id="spinner">Sending, please wait...</div>
-  <div id="responseMessage">Thanks for reaching out. We'll get back to you soon!</div>
+  <!-- Spinner -->
+  <div id="spinner">
+    <div class="loader"></div>
+    <p>Sending, please wait...</p>
+  </div>
+
+  <!-- Success/Error Message -->
+  <div id="responseMessage"></div>
 
   <script>
     const form = document.getElementById('contactForm');
@@ -47,6 +54,7 @@
       // Hide the form and show the spinner
       form.style.display = 'none';
       spinner.style.display = 'block';
+      responseMessage.style.display = 'none'; // Hide any previous messages
 
       // Collect form values
       const name = document.getElementById('name').value;
@@ -68,14 +76,16 @@
         spinner.style.display = 'none';
 
         if (response.ok) {
-          responseMessage.style.display = 'block';
+          responseMessage.textContent = "Thanks for reaching out! We'll get back to you soon!";
           responseMessage.style.color = 'green';
+          responseMessage.style.display = 'block';
         } else {
           // If there's an error response from the server
           const result = await response.json();
           responseMessage.textContent = result.message || 'Something went wrong. Please try again later.';
           responseMessage.style.display = 'block';
           responseMessage.style.color = 'red';
+          form.style.display = 'block'; // Show the form again for retry
         }
       } catch (error) {
         // If there was a network error or the fetch failed
@@ -83,6 +93,7 @@
         responseMessage.textContent = 'Error sending message. Please try again later.';
         responseMessage.style.display = 'block';
         responseMessage.style.color = 'red';
+        form.style.display = 'block'; // Show the form again for retry
       }
     });
   </script>

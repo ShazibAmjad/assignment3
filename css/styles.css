@@ -1,47 +1,48 @@
-/* Simple styling for clarity */
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
   }
+  
   nav {
     margin-bottom: 20px;
   }
+  
   nav a {
     margin-right: 10px;
     text-decoration: none;
     color: blue;
   }
+  
   form {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Ensures vertical layout */
     max-width: 300px;
     margin-bottom: 20px;
   }
+  
   label {
     margin-top: 10px;
   }
+  
   input, textarea {
     padding: 5px;
     margin-top: 5px;
   }
+  
   button {
     margin-top: 10px;
     padding: 5px 10px;
     cursor: pointer;
   }
+  
+  /* Spinner Styles */
   #spinner {
-    display: none;
+    display: none; /* Hidden by default */
     margin-top: 20px;
-    text-align: center;
-  }
-  #responseMessage {
-    display: none;
-    margin-top: 20px;
-    font-weight: bold;
     text-align: center;
   }
   
-  /* Spinner Styles */
   .loader {
     border: 8px solid #f3f3f3; /* Light grey */
     border-top: 8px solid #3498db; /* Blue */
@@ -55,5 +56,13 @@ body {
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+  }
+  
+  /* Response Message Styles */
+  #responseMessage {
+    display: none; /* Hidden by default */
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: center;
   }
   
