@@ -37,7 +37,6 @@
   <!-- Spinner -->
   <div id="spinner">
     <div class="loader"></div>
-    <p>Sending, please wait...</p>
   </div>
 
   <!-- Success/Error Message -->
@@ -77,22 +76,25 @@
 
         if (response.ok) {
           responseMessage.textContent = "Thanks for reaching out! We'll get back to you soon!";
-          responseMessage.style.color = 'green';
+          responseMessage.classList.add('success');
+          responseMessage.classList.remove('error');
           responseMessage.style.display = 'block';
         } else {
           // If there's an error response from the server
           const result = await response.json();
           responseMessage.textContent = result.message || 'Something went wrong. Please try again later.';
+          responseMessage.classList.add('error');
+          responseMessage.classList.remove('success');
           responseMessage.style.display = 'block';
-          responseMessage.style.color = 'red';
           form.style.display = 'block'; // Show the form again for retry
         }
       } catch (error) {
         // If there was a network error or the fetch failed
         spinner.style.display = 'none';
         responseMessage.textContent = 'Error sending message. Please try again later.';
+        responseMessage.classList.add('error');
+        responseMessage.classList.remove('success');
         responseMessage.style.display = 'block';
-        responseMessage.style.color = 'red';
         form.style.display = 'block'; // Show the form again for retry
       }
     });
