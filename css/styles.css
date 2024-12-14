@@ -17,7 +17,7 @@ body {
   form {
     display: flex;
     flex-direction: column; /* Ensures vertical layout */
-    max-width: 400px; /* Increased width for better spacing */
+    max-width: 400px; /* Adjusted for better spacing */
     margin-bottom: 20px;
   }
   
